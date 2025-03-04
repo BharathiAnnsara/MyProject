@@ -19,7 +19,10 @@ const DoctorSignupPage = () => {
   const navigate = useNavigate();
 
   const handleFileUpload = (e) => {
-    setLicense(e.target.files[0]); // Store file
+    const file = e.target.files[0];
+    if (file) {
+      setLicense(file);
+    }
   };
 
   const handleSignup = async (e) => {
@@ -44,7 +47,9 @@ const DoctorSignupPage = () => {
     formData.append("email", email);
     formData.append("phone", phone);
     formData.append("password", password);
-    formData.append("license", license); // Attach file
+    if (license) {
+      formData.append("license", license);
+    }
 
     try {
       await axios.post("http://localhost:5000/api/auth/signup", formData, {
@@ -68,7 +73,7 @@ const DoctorSignupPage = () => {
         <input type="text" placeholder="Specialization" value={specialization} onChange={(e) => setSpecialization(e.target.value)} required />
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="text" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-        <input type="file" onChange={handleFileUpload} accept="image/*" required />
+        <input type="file" onChange={handleFileUpload} accept="image/*,.pdf" required />
         <label>
           <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
           I agree to the terms and conditions
