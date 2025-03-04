@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
+const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
 const Doctor = require('./models/Doctor'); // Import Doctor model
 const authRoutes = require('./routes/authRoutes');
 
@@ -36,6 +37,9 @@ app.post('/api/auth/signup', upload.single('license'), async (req, res) => {
       licenseBase64 = req.file.buffer.toString('base64');
     }
 
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     // Create new Doctor record
     const newDoctor = new Doctor({
       firstName,
@@ -46,15 +50,15 @@ app.post('/api/auth/signup', upload.single('license'), async (req, res) => {
       specialization,
       email,
       phone,
-      password, // You should hash the password before saving
-      license: licenseBase64, // Only storing the image in Base64
+      password: hashedPassword, // Store hashed password
+      license: licenseBase64, // Store license as Base64
     });
 
     await newDoctor.save();
     res.status(201).json({ message: 'Doctor registered successfully!' });
 
   } catch (error) {
-    res.status(500).json({ message: 'Error registering doctor', error });
+    res.status(500).json({ message: error.message || 'Error registering doctor' });
   }
 });
 
