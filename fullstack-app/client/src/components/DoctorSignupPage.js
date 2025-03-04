@@ -11,7 +11,7 @@ const DoctorSignupPage = () => {
   const [specialization, setSpecialization] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [license, setLicense] = useState(null); // Store File object
+  const [license, setLicense] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
@@ -47,6 +47,7 @@ const DoctorSignupPage = () => {
     formData.append("email", email);
     formData.append("phone", phone);
     formData.append("password", password);
+    formData.append("role", "doctor"); // ✅ Fix: Adding role explicitly
     if (license) {
       formData.append("license", license);
     }
