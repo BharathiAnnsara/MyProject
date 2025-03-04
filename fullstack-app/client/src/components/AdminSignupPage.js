@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const AdminSignup = () => {
+const AdminSignupPage = () => {
   const [hospitalName, setHospitalName] = useState('');
   const [adminId, setAdminId] = useState('');
   const [email, setEmail] = useState('');
@@ -29,10 +29,10 @@ const AdminSignup = () => {
       });
 
       alert(response.data.message);
-      navigate('/login'); // Redirect to login after successful signup
+      navigate('/admin-login'); // ✅ Redirecting to AdminLoginPage
     } catch (err) {
       console.error('Signup Error:', err.response ? err.response.data : err);
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');//try again
+      setError(err.response?.data?.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -79,10 +79,10 @@ const AdminSignup = () => {
         <button type="submit">Signup</button>
       </form>
       <p>
-        Already have an account? <a href="/login">Login</a>
+        Already have an account? <a href="/admin-login">Login</a> {/* ✅ Updated Link */}
       </p>
     </div>
   );
 };
 
-export default AdminSignup;
+export default AdminSignupPage;

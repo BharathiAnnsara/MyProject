@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RoleSelectionPage from "./components/RoleSelectionPage";
 import PatientSignupPage from "./components/PatientSignupPage";
 import DoctorSignupPage from "./components/DoctorSignupPage";
-import AdminSignupPage from "./components/AdminSignupPage"; // ✅ Import AdminSignupPage
+import AdminSignupPage from "./components/AdminSignupPage"; // ✅ Admin Signup
+import AdminLoginPage from "./components/AdminLoginPage"; // ✅ Admin Login
 import LoginPage from "./components/LoginPage";
 import PatientDocumentUpload from "./components/PatientDocumentUpload";
 
@@ -15,8 +16,9 @@ const App = () => {
         <Route path="/signup" element={<RoleSelectionPage />} />
         <Route path="/signup/patient" element={<PatientSignupPage />} />
         <Route path="/signup/doctor" element={<DoctorSignupPage />} />
-        <Route path="/signup/admin" element={<AdminSignupPage />} /> {/* ✅ Added admin signup route */}
+        <Route path="/signup/admin" element={<AdminSignupPage />} /> {/* ✅ Admin Signup */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin-login" element={<AdminLoginPage />} /> {/* ✅ Admin Login */}
         <Route path="/upload-document" element={<PatientDocumentUpload />} />
       </Routes>
     </Router>
