@@ -1,59 +1,73 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const express = require("express");
+const multer = require("multer");
+const bcrypt = require("bcryptjs");
+const Doctor = require("../models/Doctor");
+const Patient = require("../models/Patient");
 
 const router = express.Router();
 
-// Signup Route
-router.post('/signup', async (req, res) => {
-  const { name, phone, password, dob, bloodGroup, gender, role } = req.body;
+// Configure Multer to store file data in memory
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
+// Unified signup endpoint for both doctors and patients
+router.post("/signup", upload.single("license"), async (req, res) => {
   try {
-    const userExists = await User.findOne({ phone });
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+    const { role } = req.body;
+    if (role === "doctor") {
+      // --- Doctor Signup ---
+      const { firstName, lastName, doctorId, dob, adminHospital, specialization, email, phone, password } = req.body;
+
+      // Hash the password before saving
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Convert the uploaded license file to Base64; for doctors, this field is required.
+      const licenseBase64 = req.file ? req.file.buffer.toString("base64") : undefined;
+      if (!licenseBase64) {
+        return res.status(400).json({ message: "License file is required for doctors." });
+      }
+
+      const newDoctor = new Doctor({
+        firstName,
+        lastName,
+        doctorId,
+        dob,
+        adminHospital,
+        specialization,
+        email,
+        phone,
+        password: hashedPassword,
+        licenseBase64
+      });
+
+      await newDoctor.save();
+      return res.status(201).json({ message: "Doctor registered successfully!" });
+    } else if (role === "patient") {
+      // --- Patient Signup ---
+      const { firstName, lastName, dob, email, phone, address, password } = req.body;
+
+      // Hash the password before saving
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newPatient = new Patient({
+        firstName,
+        lastName,
+        dob,
+        email,
+        phone,
+        address,
+        password: hashedPassword,
+        role: "patient"
+      });
+
+      await newPatient.save();
+      return res.status(201).json({ message: "Patient registered successfully!" });
+    } else {
+      return res.status(400).json({ message: "Invalid role provided." });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({
-      name,
-      phone,
-      password: hashedPassword,
-      dob,
-      bloodGroup,
-      gender,
-      role,
-    });
-
-    await user.save();
-    res.status(201).json({ message: 'User created successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating user', error: err });
-  }
-});
-
-// Login Route
-router.post('/login', async (req, res) => {
-  const { phone, password } = req.body;
-
-  try {
-    const user = await User.findOne({ phone });
-    if (!user) {
-      return res.status(400).json({ message: 'User not found' });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    const token = jwt.sign({ id: user._id, role: user.role }, 'secret', { expiresIn: '1h' });
-
-    res.json({ token, role: user.role });
-  } catch (err) {
-    res.status(500).json({ message: 'Login error', error: err });
+  } catch (error) {
+    console.error("Signup Error:", error);
+    return res.status(400).json({ message: "Registration failed. Please check the input data." });
   }
 });
 
