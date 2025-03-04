@@ -11,7 +11,7 @@ const DoctorSignupPage = () => {
   const [specialization, setSpecialization] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [licenseBase64, setLicenseBase64] = useState(""); // Store Base64 string
+  const [license, setLicense] = useState(null); // Store File object
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agree, setAgree] = useState(false);
@@ -19,14 +19,7 @@ const DoctorSignupPage = () => {
   const navigate = useNavigate();
 
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setLicenseBase64(reader.result); // Store Base64 string
-      };
-    }
+    setLicense(e.target.files[0]); // Store file
   };
 
   const handleSignup = async (e) => {
@@ -41,27 +34,25 @@ const DoctorSignupPage = () => {
       return;
     }
 
-    const requestData = {
-      firstName,
-      lastName,
-      doctorId,
-      dob,
-      adminHospital,
-      specialization,
-      email,
-      phone,
-      password,
-      role: "doctor",
-      licenseBase64, // Send Base64 data
-    };
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("doctorId", doctorId);
+    formData.append("dob", dob);
+    formData.append("adminHospital", adminHospital);
+    formData.append("specialization", specialization);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("password", password);
+    formData.append("license", license); // Attach file
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", requestData, {
-        headers: { "Content-Type": "application/json" },
+      await axios.post("http://localhost:5000/api/auth/signup", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       navigate("/login");
     } catch (err) {
-      setError(err.response ? err.response.data.message : "Signup failed");
+      setError(err.response?.data?.message || "Signup failed");
     }
   };
 
