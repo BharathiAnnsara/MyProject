@@ -32,7 +32,7 @@ const AdminSignup = () => {
       navigate('/login'); // Redirect to login after successful signup
     } catch (err) {
       console.error('Signup Error:', err.response ? err.response.data : err);
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      setError(err.response?.data?.message || 'Signup failed. Please try again.');//try again
     }
   };
 
