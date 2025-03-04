@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const AdminDashboard = () => {
   return (
     <div>
-      <h1>Welcome to the Admin Dashboard</h1>
+      <h1>Admin Dashboard</h1>
+      <p>Manage hospital records and users.</p>
     </div>
   );
 };
