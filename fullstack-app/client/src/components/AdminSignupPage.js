@@ -79,7 +79,7 @@ const AdminSignup = () => {
         <button type="submit">Signup</button>
       </form>
       <p>
-        Already have an account? <a href="/login">Login</a>
+        Already have an account? <a href="/admin-login">Login</a>
       </p>
     </div>
   );

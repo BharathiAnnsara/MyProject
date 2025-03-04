@@ -13,15 +13,19 @@ const AdminLoginPage = () => {
     setError(''); // Clear previous errors
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/admin-login', { email, password });
-      const { token } = response.data;
+      const response = await axios.post('http://localhost:5000/api/auth/admin-login', {
+        email,
+        password,
+      });
+
+      const { token, role } = response.data;
 
       // Store token and role in local storage
       localStorage.setItem('token', token);
-      localStorage.setItem('role', 'admin');
+      localStorage.setItem('role', role);
 
       // Redirect to admin dashboard
-      navigate('/admin');
+      navigate('/admin-dashboard');
     } catch (err) {
       console.error('Admin Login Error:', err.response ? err.response.data : err);
       setError(err.response?.data?.message || 'Login failed. Please try again.');
