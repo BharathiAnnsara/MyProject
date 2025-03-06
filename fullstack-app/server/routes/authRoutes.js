@@ -133,18 +133,22 @@ router.post("/login", async (req, res) => {
     const { email, password, role } = req.body;
     console.log(`Login request received for: ${email} as ${role}`);
 
-    // Ensure role is provided
     if (!role) {
       return res.status(400).json({ message: "Role is required." });
     }
 
     let user;
+    let redirectUrl = "";
+
     if (role === "doctor") {
       user = await Doctor.findOne({ email });
+      redirectUrl = "/doctor-dashboard";
     } else if (role === "patient") {
       user = await Patient.findOne({ email });
+      redirectUrl = "/patient-dashboard";
     } else if (role === "admin") {
       user = await Admin.findOne({ email });
+      redirectUrl = "/admin-dashboard";
     } else {
       return res.status(400).json({ message: "Invalid role provided." });
     }
@@ -153,7 +157,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password." });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password." });
@@ -166,7 +169,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    return res.json({ message: "Login successful!", token, role: user.role });
+    return res.json({ message: "Login successful!", token, redirectUrl });
   } catch (error) {
     console.error("Login Error:", error);
     return res.status(500).json({ message: "Login failed. Please try again." });
