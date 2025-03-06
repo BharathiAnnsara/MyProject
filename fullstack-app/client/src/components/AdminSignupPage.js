@@ -32,11 +32,9 @@ const AdminSignupPage = () => {
       navigate('/admin-login'); // ✅ Redirecting to AdminLoginPage
     } catch (err) {
       console.error('Signup Error:', err.response ? err.response.data : err);
-<<<<<<< HEAD
-      setError(err.response?.data?.message || 'Signup failed. Please try again.');
-=======
+
       setError(err.response?.data?.message || 'Signup failed. Please try again.');//try not again
->>>>>>> f7bd6d86517cddc63455885daa02a22ecd6f4401
+
     }
   };
 
@@ -83,11 +81,9 @@ const AdminSignupPage = () => {
         <button type="submit">Signup</button>
       </form>
       <p>
-<<<<<<< HEAD
-        Already have an account? <a href="/admin-login">Login</a> {/* ✅ Updated Link */}
-=======
+
         Already have an account? <a href="/admin-login">Login</a>
->>>>>>> f7bd6d86517cddc63455885daa02a22ecd6f4401
+
       </p>
     </div>
   );
