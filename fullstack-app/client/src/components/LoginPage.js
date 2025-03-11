@@ -64,7 +64,9 @@ const LoginPage = () => {
           <option value="">Select Role</option>
           <option value="patient">Patient</option>
           <option value="doctor">Doctor</option>
+
           <option value="admin">Admin</option>
+
         </select>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Login</button>
