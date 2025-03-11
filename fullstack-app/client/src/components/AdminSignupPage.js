@@ -40,7 +40,7 @@ const AdminSignupPage = () => {
   };
 
   return (
-<<<<<<< HEAD
+
     <div className="admin-signup-container">
       <div className="admin-signup-card">
         <h1 className="admin-signup-title">Admin Signup</h1>
@@ -92,54 +92,7 @@ const AdminSignupPage = () => {
           Already have an account? <a href="/admin-login">Login</a>
         </p>
       </div>
-=======
-    <div>
-      <h1>Admin Signup</h1>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Hospital Name"
-          value={hospitalName}
-          onChange={(e) => setHospitalName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Admin ID"
-          value={adminId}
-          onChange={(e) => setAdminId(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Signup</button>
-      </form>
-      <p>
 
-        Already have an account? <a href="/admin-login">Login</a>
-
-      </p>
->>>>>>> 370c4b752fe15ab4ae042a3b127fb0e5756c166c
     </div>
   );
 };
