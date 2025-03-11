@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './styles/AdminSignup.css';
 
-const AdminSignup = () => {
+const AdminSignupPage = () => {
   const [hospitalName, setHospitalName] = useState('');
   const [adminId, setAdminId] = useState('');
   const [email, setEmail] = useState('');
@@ -30,14 +30,17 @@ const AdminSignup = () => {
       });
 
       alert(response.data.message);
-      navigate('/login'); // Redirect to login after successful signup
+      navigate('/admin-login'); // ✅ Redirecting to AdminLoginPage
     } catch (err) {
       console.error('Signup Error:', err.response ? err.response.data : err);
+
       setError(err.response?.data?.message || 'Signup failed. Please try again.');//try not again
+
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className="admin-signup-container">
       <div className="admin-signup-card">
         <h1 className="admin-signup-title">Admin Signup</h1>
@@ -89,8 +92,56 @@ const AdminSignup = () => {
           Already have an account? <a href="/admin-login">Login</a>
         </p>
       </div>
+=======
+    <div>
+      <h1>Admin Signup</h1>
+      <form onSubmit={handleSignup}>
+        <input
+          type="text"
+          placeholder="Hospital Name"
+          value={hospitalName}
+          onChange={(e) => setHospitalName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Admin ID"
+          value={adminId}
+          onChange={(e) => setAdminId(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit">Signup</button>
+      </form>
+      <p>
+
+        Already have an account? <a href="/admin-login">Login</a>
+
+      </p>
+>>>>>>> 370c4b752fe15ab4ae042a3b127fb0e5756c166c
     </div>
   );
 };
 
-export default AdminSignup;
+export default AdminSignupPage;
