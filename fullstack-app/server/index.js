@@ -9,8 +9,9 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
+
 mongoose
-  .connect("mongodb://localhost:27017/MedicalDB", {
+  .connect("mongodb://localhost:27017/medicalDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

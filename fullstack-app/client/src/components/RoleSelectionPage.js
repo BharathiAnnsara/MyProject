@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
-
+import "./styles/RoleSelection.css";
 const RoleSelectionPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>Select Your Role</h1>
-      <button onClick={() => navigate("/signup/patient")}>Patient</button>
-      <button onClick={() => navigate("/signup/doctor")}>Doctor</button>
-      <button onClick={() => navigate("/signup/admin")}>Admin</button> {/* ✅ Added Admin Button */}
+    <div className="role-selection-container">
+      <h1 className="role-selection-title">Select Your Role</h1>
+      <button className="role-selection-btn" onClick={() => navigate("/signup/patient")}>Patient</button>
+      <button className="role-selection-btn" onClick={() => navigate("/signup/doctor")}>Doctor</button>
+      <button className="role-selection-btn" onClick={() => navigate("/signup/admin")}>Admin</button> {/* ✅ Added Admin Button */}
     </div>
   );
 };

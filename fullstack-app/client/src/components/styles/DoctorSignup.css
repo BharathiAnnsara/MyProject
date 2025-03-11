@@ -1,0 +1,133 @@
+/* Fullscreen background with blur and overlay */
+.doctor-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Change from height to min-height */
+  background: url("../../images/login-bg.jpg") no-repeat center center/cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-signup-container::before {
+  content: "";
+  position: fixed; /* Ensure overlay remains fixed while scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Soft dark overlay */
+  backdrop-filter: blur(8px);
+  z-index: -1; /* Keep it behind the form */
+}
+
+/* Glassmorphic Card Effect */
+.doctor-signup-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  overflow-y: auto; /* Allow scrolling inside the form */
+  max-height: 90vh; /* Prevent it from getting too large */
+}
+
+/* Headings */
+.doctor-signup-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* Input fields */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Placeholder color */
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Input focus effect */
+.input-field:focus {
+  background: rgba(255, 255, 255, 0.3);
+  outline: 2px solid white;
+}
+
+/* Error message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* Signup button */
+.signup-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #4CAF50, #00d4ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Button hover effect */
+.signup-btn:hover {
+  background: linear-gradient(135deg, #45a049, #0094cc);
+  transform: scale(1.05);
+}
+
+/* Checkbox and label */
+.terms-conditions {
+  font-size: 14px;
+  color: white;
+  margin-top: 10px;
+}
+
+.checkbox {
+  margin-right: 8px;
+}
+
+/* Links */
+.login-link {
+  margin-top: 10px;
+}
+
+.login-link a {
+  color: #ffcc80;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Links hover */
+.login-link a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .doctor-signup-card {
+    width: 90%;
+    padding: 2rem;
+  }
+}

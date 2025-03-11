@@ -176,4 +176,41 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/validate-access", async (req, res) => {
+  const { adminEmail, patientEmail } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ email: adminEmail });
+    const patient = await Patient.findOne({ email: patientEmail });
+
+    if (!admin || !patient) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Error validating access:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+router.post("/store-record", async (req, res) => {
+  const { patientEmail, adminEmail, ipfsHash } = req.body;
+
+  try {
+    const patient = await Patient.findOne({ email: patientEmail });
+    if (!patient) return res.status(404).json({ success: false, message: "Patient not found" });
+
+    patient.medicalRecords.push({ ipfsHash, uploadedBy: adminEmail, timestamp: new Date() });
+    await patient.save();
+
+    res.json({ success: true, message: "Record stored successfully" });
+  } catch (error) {
+    console.error("Error storing record:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+
+
 module.exports = router;

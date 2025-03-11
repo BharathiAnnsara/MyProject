@@ -1,0 +1,110 @@
+/* Fullscreen background with blur and overlay */
+.patient-dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("../../images/login-bg.jpg") no-repeat center center/cover;
+    position: relative;
+  }
+  
+  .patient-dashboard-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Soft dark overlay */
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Glassmorphic Card Effect */
+  .patient-dashboard-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  /* Headings */
+  .patient-dashboard-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* File input */
+  .file-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* File input focus effect */
+  .file-input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    outline: 2px solid white;
+  }
+  
+  /* Upload button */
+  .upload-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #4CAF50, #00d4ff);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+  }
+  
+  /* Button hover effect */
+  .upload-btn:hover {
+    background: linear-gradient(135deg, #45a049, #0094cc);
+    transform: scale(1.05);
+  }
+  
+  /* IPFS link */
+  .ipfs-link {
+    font-size: 1rem;
+    color: white;
+    margin-top: 15px;
+  }
+  
+  .ipfs-link a {
+    color: #ffcc80;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  /* Link hover effect */
+  .ipfs-link a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 480px) {
+    .patient-dashboard-card {
+      width: 90%;
+      padding: 2rem;
+    }
+  }
+  

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './styles/AdminSignup.css';
 
 const AdminSignup = () => {
   const [hospitalName, setHospitalName] = useState('');
@@ -37,50 +38,57 @@ const AdminSignup = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Signup</h1>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="Hospital Name"
-          value={hospitalName}
-          onChange={(e) => setHospitalName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Admin ID"
-          value={adminId}
-          onChange={(e) => setAdminId(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Signup</button>
-      </form>
-      <p>
-        Already have an account? <a href="/admin-login">Login</a>
-      </p>
+    <div className="admin-signup-container">
+      <div className="admin-signup-card">
+        <h1 className="admin-signup-title">Admin Signup</h1>
+        <form onSubmit={handleSignup} className="admin-signup-form">
+          <input
+            type="text"
+            placeholder="Hospital Name"
+            value={hospitalName}
+            onChange={(e) => setHospitalName(e.target.value)}
+            required
+            className="input-field"
+          />
+          <input
+            type="text"
+            placeholder="Admin ID"
+            value={adminId}
+            onChange={(e) => setAdminId(e.target.value)}
+            required
+            className="input-field"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="input-field"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="input-field"
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="input-field"
+          />
+          {error && <p className="error-message">{error}</p>}
+          <button type="submit" className="login-btn">Signup</button>
+        </form>
+        <p className="signup-links">
+          Already have an account? <a href="/admin-login">Login</a>
+        </p>
+      </div>
     </div>
   );
 };
